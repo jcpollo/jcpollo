@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="HandheldFriendly" content="true">
+<title>Wordle helper</title>
+<link rel="stylesheet" href="css/wordle.css">
+<script src="js/words.js"></script>
+<script src="js/helpers.js"></script>
+<script type="text/javascript" language="JavaScript">
+  let gWordState = {};
+  let gWordleHelper = new WordleHelper();
+  window.addEventListener('DOMContentLoaded', function(){
+   
+    const url = 'data/words.csv';
+    const response = fetch(url)
+    .then(response => response.text())
+    .then(dataStr => {
+      const wordList = readTheWordsCSV(dataStr); 
+      gWordleHelper.LoadWordList(wordList); 
+      initPlayArea();
+    }
+    )
+    .catch(err => console.log(err))
+
+  });
+</script>
+</head>
+<body style="font-family:helvetica, sans-serif">
+<p> <b>Instructions: Click/tap to enter a word, then click/tap on the letters to color in Wordle clues. Accept clues to reveal list of acceptable words.</b></p>
+<table style="width: 100%;"">
+  <tr>
+    <td>
+       <table id="play area" border=1></table>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <button id="elButton" type="button" style="font-size: 200%; ">Click to enter word</button>
+    </td>
+  </tr>
+</table>
+
+<p><b>Here's a random eligible word: </b><span id="random word" style="font-size: 150%; font-family:courier, courier new, serif;"></span></p>
+
+<table>
+ <tr><td>
+  <b>Here are all the eligible words I know:</b>
+</td></tr>
+<tr>
+  <td>
+<table id="word table" border=0 style="font-family:courier, courier new, serif;"></table>
+</td></tr>
+</table>
+
+
+
+
+
+
+
+</body>
+</html>
